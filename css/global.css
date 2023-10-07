@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+:root {
+  --c1: #f5f5f5;
+  --c2: #f0f0f0;
+  --c3: #e0e0e0;
+  --c4: #cccccc;
+  --c5: #b8b8b8;
+  --c6: #a3a3a3;
+  --c7: #8f8f8f;
+  --c8: #7a7a7a;
+  --c9: #666666;
+  --c10: #525252;
+  --c11: #3d3d3d;
+  --c12: #292929;
+  --c13: #141414;
+  --c14: #090909;
+  --c15: #000000;
+  --azulClaro: #81f0ff;
+  --azulEscuro: #2f92ed;
+}
+
+body {
+  margin: 0px;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  color: var(--c13);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+.subtitulo {
+  font-size: 4rem;
+  text-transform: uppercase;
+}
+
+.slideLeftToRight {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.slideLeftToRight-animation {
+  animation-name: slideLeftToRight;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.slideRightToLeft {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.slideRightToLeft-animation {
+  animation-name: slideRightToLeft;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.container {
+  padding: 80px 140px;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+@keyframes slideRightToLeft {
+  from {
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideLeftToRight {
+  from {
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,148 @@
+/*#region EXPERIÊNCIA */
+
+.experiencia {
+  background-color: var(--c13);
+}
+
+.experiencia-introducao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center left;
+  margin-bottom: 60px;
+  gap: 20px;
+}
+
+.experiencia .subtitulo {
+  color: var(--c11);
+}
+
+.experiencia-texto {
+  color: var(--c5);
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.experiencia-texto strong {
+  color: var(--c1);
+}
+
+/* #endregion */
+
+/* #region EMPRESA */
+
+.empresas-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.empresa {
+  background-color: var(--c14);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--c15);
+  gap: 10px 5px;
+  width: 50%;
+  justify-content: space-between;
+  position: relative;
+}
+
+.empresa:nth-child(even) {
+  justify-self: end;
+}
+
+.empresa-detalhe::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 5px;
+  height: 20px;
+  background-image: linear-gradient(var(--azulClaro), var(--azulEscuro));
+  top: 22px;
+  right: -6px;
+}
+
+.empresa-detalhe:nth-child(even):before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 5px;
+  height: 20px;
+  background-image: linear-gradient(var(--azulClaro), var(--azulEscuro));
+  top: 22px;
+  left: -6px;
+}
+
+.empresa-titulo {
+  display: flex;
+  color: var(--c1);
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.empresa-texto {
+  font-size: 0.875rem;
+  color: var(--c5);
+  line-height: 1.5rem;
+  max-width: 40ch;
+}
+
+.empresa-habilidades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  place-items: start;
+}
+
+.empresa-habilidades li {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  padding: 10px;
+  background-color: var(--c12);
+  border-radius: 4px;
+  color: var(--c1);
+  border: 1px solid var(--c15);
+}
+
+.empresa-ano-direita {
+  position: absolute;
+  color: var(--c1);
+  width: 160px;
+  font-size: 0.875rem;
+  text-wrap: nowrap;
+  top: 25px;
+  right: -180px;
+}
+
+.empresa-ano {
+  position: absolute;
+  color: var(--c1);
+  width: 160px;
+  font-size: 0.875rem;
+  text-wrap: nowrap;
+  top: 25px;
+  right: -180px;
+}
+
+li.empresa:nth-of-type(even) .empresa-ano {
+  position: absolute;
+  color: var(--c1);
+  width: 160px;
+  font-size: 0.875rem;
+  text-wrap: nowrap;
+  top: 25px;
+  text-align: right;
+  left: -180px;
+}
+
+.empresa-ano-esquerda {
+  position: relative;
+  color: var(--c1);
+  font-size: 0.875rem;
+  text-wrap: nowrap;
+  top: 25px;
+  left: -20px;
+}
+
+/* #endregion*/

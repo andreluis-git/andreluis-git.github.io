@@ -1,0 +1,104 @@
+.formacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center left;
+  gap: 60px;
+}
+
+.formacao .subtitulo {
+  color: var(--c3);
+}
+
+.formacao-texto {
+  color: var(--c9);
+  font-size: 1.5rem;
+  line-height: 1.5;
+  grid-column: 1 / -1;
+  padding-bottom: 20px;
+}
+
+.formacao-texto strong {
+  color: var(--c13);
+}
+
+.formacao-lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.formacao-academica {
+  background-color: var(--c2);
+  border-radius: 4px;
+  border: 1px solid var(--c4);
+  padding: 20px;
+  display: grid;
+}
+
+.formacao-academica span {
+  color: var(--c9);
+  text-transform: uppercase;
+}
+
+.formacao-tipo {
+  letter-spacing: 0.05rem;
+  font-size: 0.875rem;
+}
+
+.formacao-curso {
+  font-size: 1.125rem;
+  padding: 10px 0px;
+  place-self: start;
+}
+
+.formacao-instituicao {
+  font-size: 1.125rem;
+  position: relative;
+  align-self: end;
+}
+
+.formacao-instituicao::after {
+  content: "";
+  position: absolute;
+  display: block;
+  background-image: linear-gradient(45deg, var(--azulClaro), var(--azulEscuro));
+  width: 5rem;
+  height: 5px;
+  border-radius: 4px;
+}
+
+.formacao-subtitulo {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.formacao-subtitulo h3 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  color: var(--c9);
+}
+
+.cursos-lista {
+  list-style-image: url("../img/list-icon.svg");
+  list-style-position: inside;
+  color: var(--c13);
+  font-weight: bold;
+  display: grid;
+  gap: 10px;
+}
+
+.cursos-lista li > span {
+  font-weight: normal;
+  color: var(--c9);
+}
+
+.cursos {
+  place-self: start;
+}
+
+@media (max-width: 1200px) {
+  .formacao-lista {
+    grid-template-columns: 1fr;
+  }
+}
