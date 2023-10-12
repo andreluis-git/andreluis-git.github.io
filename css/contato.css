@@ -44,3 +44,28 @@
   top: -100px;
   right: 140px;
 }
+
+@media (max-width: 576px) {
+  .contato {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .contato::before {
+    transform: scale(0.5);
+    right: -30px;
+  }
+
+  .contato-text {
+    width: 25ch;
+    font-size: 1.125rem;
+  }
+
+  .contato-subtitulo {
+    font-size: 1rem;
+  }
+
+  .contato-email {
+    font-size: 1rem;
+  }
+}
