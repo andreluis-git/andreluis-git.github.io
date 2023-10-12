@@ -33,9 +33,9 @@
     align-items: center;
   }
 
-  .header img {
+  /* .header img {
     transform: scale(2);
-  }
+  } */
 
   .header ul li {
     margin-bottom: 20px;
@@ -48,5 +48,11 @@
 
   .header-menu a:hover {
     font-weight: normal;
+  }
+}
+
+@media (max-width: 576px) {
+  .header {
+    gap: 30px;
   }
 }

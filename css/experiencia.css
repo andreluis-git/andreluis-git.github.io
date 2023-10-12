@@ -52,7 +52,8 @@
   justify-self: end;
 }
 
-.empresa-detalhe::before {
+.empresa-detalhe::before,
+.empresa-detalhe:nth-child(even):before {
   content: "";
   display: block;
   position: absolute;
@@ -64,14 +65,8 @@
 }
 
 .empresa-detalhe:nth-child(even):before {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 5px;
-  height: 20px;
-  background-image: linear-gradient(var(--azulClaro), var(--azulEscuro));
-  top: 22px;
   left: -6px;
+  right: unset;
 }
 
 .empresa-titulo {
@@ -105,17 +100,8 @@
   border: 1px solid var(--c15);
 }
 
-.empresa-ano-direita {
-  position: absolute;
-  color: var(--c1);
-  width: 160px;
-  font-size: 0.875rem;
-  text-wrap: nowrap;
-  top: 25px;
-  right: -180px;
-}
-
-.empresa-ano {
+.empresa-ano,
+li.empresa:nth-of-type(even) .empresa-ano {
   position: absolute;
   color: var(--c1);
   width: 160px;
@@ -126,23 +112,64 @@
 }
 
 li.empresa:nth-of-type(even) .empresa-ano {
-  position: absolute;
-  color: var(--c1);
-  width: 160px;
-  font-size: 0.875rem;
-  text-wrap: nowrap;
-  top: 25px;
   text-align: right;
   left: -180px;
-}
-
-.empresa-ano-esquerda {
-  position: relative;
-  color: var(--c1);
-  font-size: 0.875rem;
-  text-wrap: nowrap;
-  top: 25px;
-  left: -20px;
+  right: unset;
 }
 
 /* #endregion*/
+
+@media (max-width: 576px) {
+  /*#region EXPERIÊNCIA */
+  .experiencia-introducao {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    margin-bottom: 20px;
+  }
+
+  .experiencia-texto {
+    font-size: 0.875rem;
+    line-height: 2;
+  }
+
+  /* #endregion */
+
+  /* #region EMPRESA */
+
+  .empresa {
+    width: auto;
+    align-items: center;
+  }
+
+  .empresa-detalhe::before,
+  .empresa-detalhe:nth-child(even):before {
+    top: 50px;
+  }
+
+  .empresa-titulo {
+    grid-column: 1 / -1;
+  }
+
+  span.empresa-titulo {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .empresa-texto {
+    grid-column: 1 / -1;
+  }
+
+  .empresa-habilidades {
+    grid-row: 3;
+    grid-column: 1 / -1;
+  }
+
+  .empresa-ano,
+  li.empresa:nth-of-type(even) .empresa-ano {
+    position: static;
+    grid-row: 2;
+    grid-column: 2;
+    color: var(--c4);
+    width: auto;
+  }
+}

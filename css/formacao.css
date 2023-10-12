@@ -97,8 +97,63 @@
   place-self: start;
 }
 
-@media (max-width: 1200px) {
+/* @media (max-width: 1200px) {
   .formacao-lista {
     grid-template-columns: 1fr;
+  }
+} */
+
+@media (max-width: 576px) {
+  .formacao-lista {
+    grid-template-columns: 1fr;
+  }
+
+  .formacao {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+
+  .formacao .subtitulo {
+  }
+
+  .formacao-texto {
+  }
+
+  .formacao-texto strong {
+  }
+
+  .formacao-academica {
+  }
+
+  .formacao-academica span {
+  }
+
+  .formacao-tipo {
+  }
+
+  .formacao-curso {
+  }
+
+  .formacao-instituicao {
+  }
+
+  .formacao-instituicao::after {
+  }
+
+  .formacao-subtitulo {
+  }
+
+  .formacao-subtitulo h3 {
+  }
+
+  .cursos-lista {
+  }
+
+  .cursos-lista li > span {
+  }
+
+  .cursos {
   }
 }
