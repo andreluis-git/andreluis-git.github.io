@@ -141,11 +141,6 @@ li.empresa:nth-of-type(even) .empresa-ano {
     align-items: center;
   }
 
-  .empresa-detalhe::before,
-  .empresa-detalhe:nth-child(even):before {
-    top: 50px;
-  }
-
   .empresa-titulo {
     grid-column: 1 / -1;
   }
