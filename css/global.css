@@ -80,19 +80,30 @@ ul {
   margin: 0 auto;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .container {
-    padding: 30px;
-    max-width: 576px;
-  }
-
-  .subtitulo {
-    font-size: 2rem;
+    padding: 60px;
+    max-width: 768px;
   }
 
   html,
   body {
     overflow-x: hidden;
+  }
+
+  .subtitulo {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    max-width: 576px;
+    padding: 30px;
+  }
+
+  .subtitulo {
+    font-size: 2rem;
   }
 }
 
