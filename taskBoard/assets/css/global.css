@@ -1,0 +1,60 @@
+:root {
+  --c1: #f5f5f5;
+  --c2: #f0f0f0;
+  --c3: #e0e0e0;
+  --c4: #cccccc;
+  --c5: #b8b8b8;
+  --c6: #a3a3a3;
+  --c7: #8f8f8f;
+  --c8: #7a7a7a;
+  --c9: #666666;
+  --c10: #525252;
+  --c11: #3d3d3d;
+  --c12: #292929;
+  --c13: #141414;
+  --c14: #090909;
+  --c15: #000000;
+  --azulClaro: #81f0ff;
+  --azulEscuro: #2f92ed;
+}
+
+html,
+body,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  height: 100%;
+  background-image: linear-gradient(var(--azulEscuro), var(--azulClaro));
+}
+
+h2 {
+  color: var(--c12);
+  margin: 0px;
+  font-size: 1.3rem;
+}
+
+img {
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: var(--azulEscuro);
+}
+
+a.btn {
+  width: fit-content;
+  padding: 10px;
+  background-color: var(--azulEscuro);
+  color: var(--c1);
+  border-radius: 4px;
+  display: block;
+}

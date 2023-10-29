@@ -1,0 +1,43 @@
+.board {
+  display: flex;
+  gap: 20px;
+  padding: 20px 40px;
+  height: calc(100% - 40px);
+}
+
+.column {
+  background-color: var(--c2);
+  border-radius: 4px;
+  display: grid;
+  overflow: hidden;
+  height: fit-content;
+  max-width: 300px;
+  min-width: 300px;
+  padding: 10px;
+}
+
+.dropzone {
+  padding: 10px 0px;
+  display: grid;
+  gap: 10px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px rgba(67, 91, 102, 0.3);
+}
+
+.card * {
+  font-size: 1rem;
+  padding: 10px;
+  color: var(--c10);
+}
+
+.highlight {
+  background-color: rgba(68, 108, 126, 0.2);
+}
+
+.dragging {
+  opacity: 0.3;
+}

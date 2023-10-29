@@ -1,0 +1,55 @@
+{
+  "colunas": [
+    {
+      "nomeColuna": "To Do 2",
+      "cards": [
+        {
+          "tituloCard": "Um titulo qualquer to do",
+          "descricao": "Uma descricao da tarefa to do"
+        },
+        {
+          "tituloCard": "Um titulo qualquer to do",
+          "descricao": "Uma descricao da tarefa to do"
+        },
+        {
+          "tituloCard": "Um titulo qualquer to do",
+          "descricao": "Uma descricao da tarefa to do"
+        }
+      ]
+    },
+    {
+      "nomeColuna": "Doing",
+      "cards": [
+        {
+          "tituloCard": "Um titulo qualquer doing",
+          "descricao": "Uma descricao da tarefa doing"
+        },
+        {
+          "tituloCard": "Um titulo qualquer doing",
+          "descricao": "Uma descricao da tarefa doing"
+        },
+        {
+          "tituloCard": "Um titulo qualquer doing",
+          "descricao": "Uma descricao da tarefa doing"
+        }
+      ]
+    },
+    {
+      "nomeColuna": "Done",
+      "cards": [
+        {
+          "tituloCard": "Um titulo qualquer done",
+          "descricao": "Uma descricao da tarefa done"
+        },
+        {
+          "tituloCard": "Um titulo qualquer done",
+          "descricao": "Uma descricao da tarefa done"
+        },
+        {
+          "tituloCard": "Um titulo qualquer done",
+          "descricao": "Uma descricao da tarefa done"
+        }
+      ]
+    }
+  ]
+}

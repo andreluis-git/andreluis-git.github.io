@@ -1,0 +1,25 @@
+.aviso {
+  display: grid;
+  justify-items: center;
+  width: 70ch;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  gap: 10px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px rgba(67, 91, 102, 0.3);
+}
+
+.aviso p {
+  text-align: center;
+}
+
+.aviso button {
+  background-color: var(--cor-a-destaque);
+  color: var(--cor-a-bg-claro);
+}
