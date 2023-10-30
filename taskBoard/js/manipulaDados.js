@@ -1,8 +1,9 @@
 import { default as data } from "../assets/data.json" assert { type: "json" };
 import utils from "./utils.js";
+import modalFunctions from "./modal.js";
 
 function carregarDados() {
-  window.localStorage.setItem("listaTarefas", JSON.stringify(data));
+  // window.localStorage.setItem("listaTarefas", JSON.stringify(data));
   const listaTarefas = JSON.parse(window.localStorage.getItem("listaTarefas"));
 
   const column = document.getElementById("addColumn");
@@ -13,15 +14,18 @@ function carregarDados() {
     }
 
     if (listaTarefas.colunas) {
-      listaTarefas.colunas.forEach((coluna, idx) => {
+      listaTarefas.colunas.forEach((coluna) => {
         let novaColuna = criarNovaColuna(coluna);
         let dropzone = novaColuna.querySelector(".dropzone");
-        coluna.cards.forEach((card, idx) => {
-          const novoCard = criarNovoCard(card, idx);
+        coluna.cards.forEach((card) => {
+          const novoCard = criarNovoCard(card);
           dropzone.appendChild(novoCard);
         });
 
         column.parentNode.insertBefore(novaColuna, column);
+        modalFunctions.adicionaCartaoListener(
+          novaColuna.querySelector(".btn").id
+        );
       });
     }
   }
@@ -38,7 +42,7 @@ function criarNovaColuna(coluna) {
   let botao = document.createElement("a");
   botao.innerHTML = "Adicionar cartão";
   botao.href = "#";
-  botao.className = "btnAddCard btn";
+  botao.className = "btn";
   botao.id = utils.padronizaString(coluna.nomeColuna + "_add");
 
   novaColuna.appendChild(nomeColuna);
@@ -48,7 +52,7 @@ function criarNovaColuna(coluna) {
   return novaColuna;
 }
 
-function criarNovoCard(card, idx) {
+function criarNovoCard(card) {
   let newElement = document.createElement("div");
   newElement.className = "card";
   newElement.setAttribute("draggable", "true");
@@ -59,7 +63,7 @@ function criarNovoCard(card, idx) {
   }
 
   let titulo = document.createElement("h3");
-  titulo.textContent = card.tituloCard + ` ${idx}`;
+  titulo.textContent = card.tituloCard;
   let descricao = document.createElement("p");
   descricao.textContent = card.descricao;
 

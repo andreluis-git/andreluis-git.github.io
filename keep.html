@@ -4,15 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favicon2.svg" type="image/x-icon">
   <link rel="stylesheet" href="./taskBoard/assets/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <title>Drag and drop</title>
+  <title>Board</title>
 </head>
 
 <body>
-  <div class="board">
+  <header class="header container">
+    <img src="./taskBoard/assets/img/board.svg" alt="Logo do site" class="logo">
+    <div class="">
+      <a id="btnLimpar" href="#" class="btn btn-gradient">Limpar dados</a>
+    </div>
+  </header>
+  <div class="board container">
 
     <div id="addColumn" class="column">
       <a id="btnAddColumn" class="btn btnAddColumn" href="#">Adicionar coluna...</a>
@@ -27,10 +34,6 @@
     </div>
   </div>
   <!-- Modal fim -->
-  <!-- Aviso -->
-  <div class="aviso">
-    <p>Os dados inseridos nessa página são gravados no armazenamento local do navegador. Caso queira apagar os dados clique no botão "LIMPAR DADOS"</p>
-    <a id="btnLimpar" href="#" class="btn">Limpar dados</a>
   </div>
 </body>
 <script type="module" src="./taskBoard/js/manipulaDados.js"></script>

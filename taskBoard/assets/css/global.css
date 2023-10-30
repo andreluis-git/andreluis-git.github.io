@@ -16,6 +16,7 @@
   --c15: #000000;
   --azulClaro: #81f0ff;
   --azulEscuro: #2f92ed;
+  --azulEscuroT: rgb(129, 240, 255, 0.4);
 }
 
 html,
@@ -26,14 +27,18 @@ p {
   padding: 0;
 }
 
+body,
+html {
+  height: 100%;
+}
+
 body {
   font-family: "Roboto", Arial, Helvetica, sans-serif;
-  height: 100%;
   background-image: linear-gradient(var(--azulEscuro), var(--azulClaro));
 }
 
 h2 {
-  color: var(--c12);
+  color: var(--c10);
   margin: 0px;
   font-size: 1.3rem;
 }
@@ -47,14 +52,25 @@ img {
 
 a {
   text-decoration: none;
-  color: var(--azulEscuro);
+  color: var(--c1);
 }
 
-a.btn {
+.btn {
   width: fit-content;
   padding: 10px;
-  background-color: var(--azulEscuro);
-  color: var(--c1);
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--c10);
   border-radius: 4px;
   display: block;
+}
+
+.container {
+  padding-right: 40px;
+  padding-left: 40px;
+}
+
+.btn-gradient {
+  background-color: var(--azulEscuroT);
+  color: var(--c1);
+  font-weight: bold;
 }

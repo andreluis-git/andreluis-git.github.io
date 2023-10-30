@@ -27,7 +27,6 @@
 
 .close {
   color: var(--c9);
-  float: right;
   font-size: 28px;
   font-weight: bold;
 }
@@ -40,9 +39,16 @@
 }
 
 .modal-header {
+  display: flex;
   padding: 2px 16px;
-  background-color: var(--cor-a-destaque);
+  background-color: #2f91edbb;
   color: white;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-header h2 {
+  color: inherit;
 }
 
 .modal-body {
@@ -54,6 +60,11 @@
   padding: 2px 16px;
   background-color: var(--cor-a-destaque);
   color: white;
+}
+
+.modal-footer .btn {
+  background-color: #2f91edbb;
+  color: inherit;
 }
 
 /* Add Animation */

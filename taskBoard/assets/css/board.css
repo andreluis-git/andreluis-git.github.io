@@ -1,11 +1,29 @@
 .board {
   display: flex;
   gap: 20px;
-  padding: 20px 40px;
-  height: calc(100% - 40px);
+  height: calc(100% - 60px);
+  overflow-x: auto;
+}
+
+.board::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.board::-webkit-scrollbar {
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+}
+
+.board::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .column {
+  margin-top: 10px;
   background-color: var(--c2);
   border-radius: 4px;
   display: grid;
@@ -25,7 +43,7 @@
 .card {
   background-color: white;
   border-radius: 4px;
-  box-shadow: 1px 1px 1px rgba(67, 91, 102, 0.3);
+  box-shadow: 0px 1px 1px rgba(67, 91, 102, 0.3);
 }
 
 .card * {

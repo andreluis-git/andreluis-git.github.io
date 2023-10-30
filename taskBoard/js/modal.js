@@ -1,4 +1,5 @@
 import manipulaDados from "./manipulaDados.js";
+import utils from "./utils.js";
 
 const modal = document.querySelector(".modal");
 
@@ -32,9 +33,9 @@ function modalCriarColuna() {
   const modalFooter = document.querySelector(".modal-footer");
 
   let modalTitulo = document.createElement("h2");
-  modalTitulo.textContent = "Add Column";
+  modalTitulo.textContent = "Adicionar coluna";
 
-  modalHeader.appendChild(modalTitulo);
+  modalHeader.prepend(modalTitulo);
 
   let label = document.createElement("label");
   label.textContent = "Título da coluna";
@@ -51,12 +52,80 @@ function modalCriarColuna() {
   btnAdd.className = "btn";
   btnAdd.onclick = () => {
     const tituloNovaColuna = document.getElementById("inputTituloId").value;
-    gravarDadosLocalStorage(tituloNovaColuna);
+    gravarNovaColunaLocalStorage(tituloNovaColuna);
     modal.style.display = "none";
     resetarModal();
   };
 
   modalFooter.appendChild(btnAdd);
+
+  input.addEventListener("keypress", function (ev) {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      if (input.value) modalFooter.querySelector(".btn").click();
+    }
+  });
+}
+
+function modalCriarCard(btnId) {
+  const modalHeader = document.querySelector(".modal-header");
+  const modalBody = document.querySelector(".modal-body");
+  const modalFooter = document.querySelector(".modal-footer");
+
+  let modalTitulo = document.createElement("h2");
+  modalTitulo.textContent = "Adicionar cartão";
+
+  modalHeader.prepend(modalTitulo);
+
+  let labelTitulo = document.createElement("label");
+  labelTitulo.textContent = "Título do cartão";
+  labelTitulo.style.display = "block";
+  let inputTitulo = document.createElement("input");
+  inputTitulo.id = "inputTituloId";
+  let labelTexto = document.createElement("label");
+  labelTexto.textContent = "Descrição do cartão";
+  labelTexto.style.display = "block";
+  let inputTexto = document.createElement("input");
+  inputTexto.id = "inputTextoId";
+  inputTexto.setAttribute("type", "textarea");
+
+  modalBody.appendChild(labelTitulo);
+  modalBody.appendChild(inputTitulo);
+  modalBody.appendChild(labelTexto);
+  modalBody.appendChild(inputTexto);
+
+  let btnAdd = document.createElement("a");
+  btnAdd.href = "#";
+  btnAdd.textContent = "Adicionar";
+  btnAdd.className = "btn";
+  btnAdd.onclick = () => {
+    const novoCard = {
+      tituloCard: document.getElementById("inputTituloId").value,
+      descricao: document.getElementById("inputTextoId").value,
+    };
+
+    gravarNovoCardLocalStorage(novoCard, btnId);
+    modal.style.display = "none";
+    resetarModal();
+  };
+
+  modalFooter.appendChild(btnAdd);
+
+  inputTitulo.addEventListener("keypress", function (ev) {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      if (inputTitulo.value && inputTexto)
+        modalFooter.querySelector(".btn").click();
+    }
+  });
+
+  inputTexto.addEventListener("keypress", function (ev) {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      if (inputTitulo.value && inputTexto)
+        modalFooter.querySelector(".btn").click();
+    }
+  });
 }
 
 function resetarModal() {
@@ -67,7 +136,7 @@ function resetarModal() {
 criarBaseModal();
 
 //DADOS
-function gravarDadosLocalStorage(titulo) {
+function gravarNovaColunaLocalStorage(titulo) {
   let dados = JSON.parse(window.localStorage.getItem("listaTarefas"));
   if (!dados) {
     dados = {
@@ -94,17 +163,54 @@ function gravarDadosLocalStorage(titulo) {
   manipulaDados.carregarDados();
 }
 
+function gravarNovoCardLocalStorage(novoCard, btnId) {
+  let localStorageDados = JSON.parse(
+    window.localStorage.getItem("listaTarefas")
+  );
+
+  if (!localStorageDados) {
+    alert("Não foi possível criar o card");
+    return;
+  }
+
+  localStorageDados.colunas
+    .find(
+      (coluna) =>
+        utils.padronizaString(coluna.nomeColuna) == btnId.replace("_add", "")
+    )
+    .cards.push(novoCard);
+
+  console.log(
+    localStorageDados.colunas.find(
+      (coluna) =>
+        utils.padronizaString(coluna.nomeColuna) == btnId.replace("_add", "")
+    )
+  );
+
+  window.localStorage.setItem(
+    "listaTarefas",
+    JSON.stringify(localStorageDados)
+  );
+
+  manipulaDados.carregarDados();
+}
+
 //Listeners
-const btnsAddCard = document.querySelectorAll(".btnAddCard");
 const btnAddColumn = document.querySelector(".btnAddColumn");
 
-btnsAddCard.forEach((btn) => {
-  btn.onclick = () => {};
-});
+function adicionaCartaoListener(btnId) {
+  let btn = document.getElementById(btnId);
+  btn.onclick = () => {
+    modalCriarCard(btnId);
+    modal.style.display = "block";
+    modal.querySelector("#inputTituloId").focus();
+  };
+}
 
 btnAddColumn.onclick = (ev) => {
   modalCriarColuna();
   modal.style.display = "block";
+  modal.querySelector("#inputTituloId").focus();
 };
 
 window.onclick = function (event) {
@@ -113,3 +219,16 @@ window.onclick = function (event) {
     resetarModal();
   }
 };
+
+window.onkeyup = function (ev) {
+  if (ev.key === "Escape") {
+    modal.style.display = "none";
+    resetarModal();
+  }
+};
+
+const modalFunctions = {
+  adicionaCartaoListener,
+};
+
+export default modalFunctions;

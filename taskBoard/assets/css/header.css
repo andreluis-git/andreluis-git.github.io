@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: fit-content;
+  height: 40px;
+}
+
+#btnLimpar {
+  position: relative;
+}
+
+#btnLimpar::before {
+  content: "Os dados inseridos nessa página são gravados no armazenamento local do navegador. Caso queira apagar os dados clique aqui";
+  display: block;
+  visibility: hidden;
+  width: 60ch;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-align: center;
+  padding: 5px 5px;
+  border-radius: 6px;
+  right: 0;
+  bottom: -2.5rem;
+  font-weight: normal;
+  font-size: 0.7rem;
+
+  position: absolute;
+  z-index: 1;
+}
+
+#btnLimpar:hover#btnLimpar::before {
+  visibility: visible;
+}
