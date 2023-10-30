@@ -76,6 +76,7 @@ function criarNovoCard(card) {
 const btnLimpar = document.getElementById("btnLimpar");
 btnLimpar.onclick = () => {
   window.localStorage.removeItem("listaTarefas");
+  window.location.reload();
 };
 
 const manipulaDados = {
