@@ -64,7 +64,7 @@ function criarNovoCard(card) {
 
   let titulo = document.createElement("h3");
   titulo.textContent = card.tituloCard;
-  let descricao = document.createElement("p");
+  let descricao = document.createElement("span");
   descricao.textContent = card.descricao;
 
   newElement.appendChild(titulo);

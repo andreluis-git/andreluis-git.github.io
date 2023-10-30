@@ -56,6 +56,11 @@
   background-color: var(--cor-a-bg-claro);
 }
 
+.modal-body input,
+.modal-body textarea {
+  width: 100%;
+}
+
 .modal-footer {
   padding: 2px 16px;
   background-color: var(--cor-a-destaque);

@@ -85,9 +85,9 @@ function modalCriarCard(btnId) {
   let labelTexto = document.createElement("label");
   labelTexto.textContent = "Descrição do cartão";
   labelTexto.style.display = "block";
-  let inputTexto = document.createElement("input");
+  let inputTexto = document.createElement("textarea");
   inputTexto.id = "inputTextoId";
-  inputTexto.setAttribute("type", "textarea");
+  inputTexto.setAttribute("rows", 10);
 
   modalBody.appendChild(labelTitulo);
   modalBody.appendChild(inputTitulo);
