@@ -127,6 +127,7 @@ function criarNovoCard(card) {
   dropdownOptions.classList = "more-card-dropdown";
   let deleteOption = document.createElement("span");
   deleteOption.innerHTML = "Deletar";
+  deleteOption.id = "deletar_card";
   deleteOption.addEventListener("click", function (ev) {
     let node = ev.target;
     while (!node.className.match(/^card$/)) {
@@ -156,7 +157,7 @@ function criarNovoCard(card) {
     ev.preventDefault();
     if (
       ev.target.className.includes("material-symbols-outlined") ||
-      ev.target.innerHTML?.includes("Deletar")
+      ev.target.id?.includes("deletar_card")
     ) {
       return;
     }
