@@ -53,6 +53,7 @@ function criarNovaColuna(coluna) {
 function criarNovoCard(card) {
   let newElement = document.createElement("div");
   newElement.className = "card";
+  newElement.id = card.id;
   newElement.setAttribute("draggable", "true");
   if (card.img) {
     let img = document.createElement("img");
@@ -60,20 +61,17 @@ function criarNovoCard(card) {
     newElement.appendChild(img);
   }
 
-  let cardHead = document.createElement("div");
-  cardHead.classList = "card-head";
-
   let titulo = document.createElement("h3");
   titulo.textContent = card.tituloCard;
 
   const modal = document.querySelector(".modal");
-  let btnEdit = document.createElement("span");
-  btnEdit.className = "material-symbols-outlined btn-edit";
-  btnEdit.id = "editCard";
-  btnEdit.innerHTML = "edit_square";
-  btnEdit.onclick = (ev) => {
+  newElement.onclick = (ev) => {
     modal.style.display = "block";
-    console.log(ev.target.parentNode.parentNode);
+    if (!ev.target.className.includes("card")) {
+      modalFunctions.modalEditarCard(ev.target.parentNode);
+    } else {
+      modalFunctions.modalEditarCard(ev.target);
+    }
     //PEGAR OS DADOS DO CARD
     //CRIAR A ESTRUTURA PARA EDITAR O CARD NO MODAL
     //PASSAR OS DADOS DO CARD PARA ESTRUTURA
@@ -82,9 +80,7 @@ function criarNovoCard(card) {
   let descricao = document.createElement("span");
   descricao.textContent = card.descricao;
 
-  cardHead.appendChild(titulo);
-  cardHead.appendChild(btnEdit);
-  newElement.appendChild(cardHead);
+  newElement.appendChild(titulo);
   newElement.appendChild(descricao);
 
   return newElement;
