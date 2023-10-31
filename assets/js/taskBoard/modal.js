@@ -152,7 +152,7 @@ function modalEditarCard(card) {
   let inputTexto = document.createElement("textarea");
   inputTexto.id = "inputTextoId";
   inputTexto.setAttribute("rows", 10);
-  inputTexto.value = card.querySelector("span").innerHTML;
+  inputTexto.value = card.querySelector("#card_descricao").innerHTML;
 
   modalBody.appendChild(labelTitulo);
   modalBody.appendChild(inputTitulo);
@@ -207,7 +207,7 @@ criarBaseModal();
 
 //DADOS
 function gravarNovaColunaLocalStorage(titulo) {
-  let dados = JSON.parse(window.localStorage.getItem("listaTarefas"));
+  let dados = JSON.parse(window.localStorage.getItem("boardData"));
   if (!dados) {
     dados = {
       colunas: [
@@ -228,15 +228,13 @@ function gravarNovaColunaLocalStorage(titulo) {
     });
   }
 
-  window.localStorage.setItem("listaTarefas", JSON.stringify(dados));
+  window.localStorage.setItem("boardData", JSON.stringify(dados));
 
   manipulaDados.carregarDados();
 }
 
 function gravarCardLocalStorage(novoCard, colunaNome) {
-  let localStorageDados = JSON.parse(
-    window.localStorage.getItem("listaTarefas")
-  );
+  let localStorageDados = JSON.parse(window.localStorage.getItem("boardData"));
 
   if (!localStorageDados) {
     alert("Não foi possível criar o card");
@@ -265,10 +263,7 @@ function gravarCardLocalStorage(novoCard, colunaNome) {
     localStorageDados.colunas[colunaPosition].cards[cardPosition] = novoCard;
   }
 
-  window.localStorage.setItem(
-    "listaTarefas",
-    JSON.stringify(localStorageDados)
-  );
+  window.localStorage.setItem("boardData", JSON.stringify(localStorageDados));
 
   manipulaDados.carregarDados();
 }
