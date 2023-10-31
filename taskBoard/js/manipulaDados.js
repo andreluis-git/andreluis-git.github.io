@@ -1,9 +1,7 @@
-import { default as data } from "../assets/data.json" assert { type: "json" };
 import utils from "./utils.js";
 import modalFunctions from "./modal.js";
 
 function carregarDados() {
-  // window.localStorage.setItem("listaTarefas", JSON.stringify(data));
   const listaTarefas = JSON.parse(window.localStorage.getItem("listaTarefas"));
 
   const column = document.getElementById("addColumn");

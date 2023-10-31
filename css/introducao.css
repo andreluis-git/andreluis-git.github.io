@@ -3,9 +3,6 @@
   grid-template-columns: 1fr 2fr;
   gap: 20px;
   align-items: center;
-}
-
-.introducao {
   place-items: center;
 }
 
