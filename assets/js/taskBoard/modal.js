@@ -67,6 +67,48 @@ function modalCriarColuna() {
   });
 }
 
+function modalEditarColuna(coluna) {
+  const modalHeader = document.querySelector(".modal-header");
+  const modalBody = document.querySelector(".modal-body");
+  const modalFooter = document.querySelector(".modal-footer");
+
+  let modalTitulo = document.createElement("h2");
+  modalTitulo.textContent = "Adicionar coluna";
+
+  modalHeader.prepend(modalTitulo);
+
+  let label = document.createElement("label");
+  label.textContent = "Título da coluna";
+  label.style.display = "block";
+  let input = document.createElement("input");
+  input.id = "inputTituloId";
+  input.value = coluna.innerHTML;
+
+  modalBody.appendChild(label);
+  modalBody.appendChild(input);
+
+  let btnAdd = document.createElement("a");
+  btnAdd.href = "#";
+  btnAdd.textContent = "Salvar";
+  btnAdd.className = "btn";
+  btnAdd.onclick = () => {
+    const novoTituloColuna = document.getElementById("inputTituloId").value;
+    editarColunaLocalStorage(novoTituloColuna, coluna.id);
+    modal.style.display = "none";
+    resetarModal();
+  };
+
+  modalFooter.appendChild(btnAdd);
+
+  input.addEventListener("keypress", function (ev) {
+    if (ev.key === "Enter") {
+      ev.preventDefault();
+      if (input.value) modalFooter.querySelector(".btn").click();
+    }
+  });
+}
+
+//#region Modais card
 function modalCriarCard(btnId) {
   const modalHeader = document.querySelector(".modal-header");
   const modalBody = document.querySelector(".modal-body");
@@ -198,6 +240,8 @@ function modalEditarCard(card) {
   });
 }
 
+//#endregion
+
 function resetarModal() {
   document.querySelector(".modal-content").innerHTML = "";
   criarBaseModal();
@@ -205,15 +249,16 @@ function resetarModal() {
 
 criarBaseModal();
 
-//DADOS
+//#region Dados
 function gravarNovaColunaLocalStorage(titulo) {
-  let dados = JSON.parse(window.localStorage.getItem("boardData"));
+  let dados = utils.getLocalStorage("boardData");
   if (!dados) {
     dados = {
       colunas: [
         {
           nomeColuna: titulo,
           cards: [],
+          id: "coluna_0",
         },
       ],
     };
@@ -222,19 +267,34 @@ function gravarNovaColunaLocalStorage(titulo) {
       alert("Coluna já existe");
       return;
     }
+
     dados.colunas.push({
       nomeColuna: titulo,
       cards: [],
+      id: "coluna_" + dados.colunas.length,
     });
   }
 
-  window.localStorage.setItem("boardData", JSON.stringify(dados));
+  utils.setLocalStorage("boardData", dados);
+
+  manipulaDados.carregarDados();
+}
+
+function editarColunaLocalStorage(titulo, colunaId) {
+  let dados = utils.getLocalStorage("boardData");
+  if (dados) {
+    dados.colunas.forEach((el) => {
+      if (el.id == colunaId) el.nomeColuna = titulo;
+    });
+  }
+
+  utils.setLocalStorage("boardData", dados);
 
   manipulaDados.carregarDados();
 }
 
 function gravarCardLocalStorage(novoCard, colunaNome) {
-  let localStorageDados = JSON.parse(window.localStorage.getItem("boardData"));
+  let localStorageDados = utils.getLocalStorage("boardData");
 
   if (!localStorageDados) {
     alert("Não foi possível criar o card");
@@ -263,12 +323,14 @@ function gravarCardLocalStorage(novoCard, colunaNome) {
     localStorageDados.colunas[colunaPosition].cards[cardPosition] = novoCard;
   }
 
-  window.localStorage.setItem("boardData", JSON.stringify(localStorageDados));
+  utils.setLocalStorage("boardData", localStorageDados);
 
   manipulaDados.carregarDados();
 }
 
-//Listeners
+//#endregion
+
+//#region Listeners
 const btnAddColumn = document.querySelector(".btnAddColumn");
 
 function adicionaCartaoListener(btnId) {
@@ -300,9 +362,12 @@ window.onkeyup = function (ev) {
   }
 };
 
+//#endregion
+
 const modalFunctions = {
   adicionaCartaoListener,
   modalEditarCard,
+  modalEditarColuna,
 };
 
 export default modalFunctions;

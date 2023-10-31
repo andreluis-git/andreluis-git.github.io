@@ -2,7 +2,7 @@ import utils from "./utils.js";
 import modalFunctions from "./modal.js";
 
 function carregarDados() {
-  const listaTarefas = JSON.parse(window.localStorage.getItem("boardData"));
+  const listaTarefas = utils.getLocalStorage("boardData");
 
   const column = document.getElementById("addColumn");
 
@@ -32,8 +32,47 @@ function carregarDados() {
 function criarNovaColuna(coluna) {
   let novaColuna = document.createElement("div");
   novaColuna.className = "column";
+  novaColuna.id = coluna.id;
+
+  let colunaHead = document.createElement("div");
+  colunaHead.classList = "coluna-head";
   let nomeColuna = document.createElement("h2");
   nomeColuna.textContent = coluna.nomeColuna;
+  let btnMoreOptions = document.createElement("span");
+  btnMoreOptions.classList = "material-symbols-outlined btn-more-coluna";
+  btnMoreOptions.id = "btn-more-coluna";
+  btnMoreOptions.innerHTML = "more_horiz";
+  let dropdownOptions = document.createElement("div");
+  dropdownOptions.classList = "more-coluna-dropdown";
+  let deleteOption = document.createElement("span");
+  deleteOption.innerHTML = "Deletar";
+  deleteOption.addEventListener("click", function (ev) {
+    let node = ev.target;
+    while (!node.className.match(/^column$/)) {
+      node = node.parentNode;
+    }
+
+    console.log(node);
+
+    removerColuna(node);
+  });
+
+  dropdownOptions.appendChild(deleteOption);
+
+  colunaHead.appendChild(nomeColuna);
+  colunaHead.appendChild(btnMoreOptions);
+  colunaHead.appendChild(dropdownOptions);
+
+  btnMoreOptions.addEventListener("click", function (ev) {
+    dropdownOptions.style.display = "block";
+  });
+
+  window.addEventListener("click", function (ev) {
+    if (ev.target != btnMoreOptions) {
+      dropdownOptions.style.display = "none";
+    }
+  });
+
   let dropzone = document.createElement("div");
   dropzone.setAttribute("id", utils.padronizaString(coluna.nomeColuna));
   dropzone.className = "dropzone";
@@ -43,7 +82,7 @@ function criarNovaColuna(coluna) {
   botao.className = "btn";
   botao.id = utils.padronizaString(coluna.nomeColuna + "_add");
 
-  novaColuna.appendChild(nomeColuna);
+  novaColuna.appendChild(colunaHead);
   novaColuna.appendChild(dropzone);
   novaColuna.appendChild(botao);
 
@@ -77,7 +116,7 @@ function criarNovoCard(card) {
   deleteOption.innerHTML = "Deletar";
   deleteOption.addEventListener("click", function (ev) {
     let node = ev.target;
-    while (!node.className.match(/^card$/) && !node.id?.includes("card")) {
+    while (!node.className.match(/^card$/)) {
       node = node.parentNode;
     }
 
@@ -129,6 +168,17 @@ function criarNovoCard(card) {
   return newElement;
 }
 
+const removerColuna = (coluna) => {
+  let localStorageDados = utils.getLocalStorage("boardData");
+  localStorageDados.colunas = localStorageDados.colunas.filter(
+    (el) => el.id !== coluna.id
+  );
+
+  utils.setLocalStorage("boardData", localStorageDados);
+
+  document.getElementById(coluna.id).parentElement.removeChild(coluna);
+};
+
 const removerCard = (card) => {
   let colunaNome = card;
   while (!colunaNome.className.match(/^column$/)) {
@@ -137,12 +187,9 @@ const removerCard = (card) => {
 
   colunaNome = utils.padronizaString(colunaNome.querySelector("h2").innerHTML);
 
-  let localStorageDados = JSON.parse(window.localStorage.getItem("boardData"));
+  let localStorageDados = utils.getLocalStorage("boardData");
   let colunaPosition = localStorageDados.colunas.findIndex(
     (coluna) => utils.padronizaString(coluna.nomeColuna) == colunaNome
-  );
-  let cardPosition = localStorageDados.colunas[colunaPosition].cards.findIndex(
-    (el) => el.id == card.id
   );
 
   console.log(localStorageDados.colunas[colunaPosition].cards);
@@ -151,7 +198,7 @@ const removerCard = (card) => {
     colunaPosition
   ].cards.filter((el) => el.id !== card.id);
 
-  window.localStorage.setItem("boardData", JSON.stringify(localStorageDados));
+  utils.setLocalStorage("boardData", localStorageDados);
 
   document.getElementById(card.id).parentElement.removeChild(card);
 };

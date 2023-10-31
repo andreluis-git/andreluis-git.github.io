@@ -33,6 +33,46 @@
   padding: 10px;
 }
 
+.coluna-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.btn-more-coluna {
+  border-radius: 100px;
+  padding: 5px;
+}
+
+.btn-more-coluna:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.more-coluna-dropdown {
+  position: absolute;
+  right: 15px;
+  top: 30px;
+  display: none;
+  border: 1px solid var(--c6);
+  border-radius: 4px;
+  background-color: white;
+  font-size: 0.9rem;
+  min-width: 100px;
+}
+
+.more-coluna-dropdown span {
+  padding: 5px;
+  display: block;
+  text-align: center;
+}
+
+.more-coluna-dropdown span:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 .dropzone {
   padding: 10px 0px;
   width: 100%;
@@ -49,12 +89,12 @@
 }
 
 .btn-more-card {
-  cursor: pointer;
   border-radius: 100px;
   padding: 5px;
 }
 
 .btn-more-card:hover {
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -71,24 +111,14 @@
 }
 
 .more-card-dropdown span {
-  padding: 10px;
-  display: block;
-  text-align: center;
-}
-
-.more-card-dropdown span {
   padding: 5px;
   display: block;
   text-align: center;
+  cursor: pointer;
 }
 
 .more-card-dropdown span:hover {
   background-color: rgba(0, 0, 0, 0.1);
-}
-
-.btn-edit {
-  font-size: 1.3rem;
-  cursor: pointer;
 }
 
 .card {
