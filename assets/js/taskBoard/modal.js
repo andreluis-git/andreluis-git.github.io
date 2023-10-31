@@ -65,6 +65,8 @@ function modalCriarColuna() {
       if (input.value) modalFooter.querySelector(".btn").click();
     }
   });
+
+  modal.style.display = "block";
 }
 
 function modalEditarColuna(coluna) {
@@ -82,7 +84,9 @@ function modalEditarColuna(coluna) {
   label.style.display = "block";
   let input = document.createElement("input");
   input.id = "inputTituloId";
-  input.value = coluna.innerHTML;
+  input.value = coluna
+    .querySelector(".coluna-head")
+    .querySelector("h2").innerHTML;
 
   modalBody.appendChild(label);
   modalBody.appendChild(input);
@@ -106,6 +110,8 @@ function modalEditarColuna(coluna) {
       if (input.value) modalFooter.querySelector(".btn").click();
     }
   });
+
+  modal.style.display = "block";
 }
 
 //#region Modais card
@@ -170,6 +176,8 @@ function modalCriarCard(btnId) {
         modalFooter.querySelector(".btn").click();
     }
   });
+
+  modal.style.display = "block";
 }
 
 function modalEditarCard(card) {
@@ -238,6 +246,8 @@ function modalEditarCard(card) {
         modalFooter.querySelector(".btn").click();
     }
   });
+
+  modal.style.display = "block";
 }
 
 //#endregion
@@ -337,14 +347,13 @@ function adicionaCartaoListener(btnId) {
   let btn = document.getElementById(btnId);
   btn.onclick = () => {
     modalCriarCard(btnId);
-    modal.style.display = "block";
     modal.querySelector("#inputTituloId").focus();
   };
 }
 
 btnAddColumn.onclick = (ev) => {
   modalCriarColuna();
-  modal.style.display = "block";
+
   modal.querySelector("#inputTituloId").focus();
 };
 

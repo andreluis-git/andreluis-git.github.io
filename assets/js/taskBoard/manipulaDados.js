@@ -44,6 +44,18 @@ function criarNovaColuna(coluna) {
   btnMoreOptions.innerHTML = "more_horiz";
   let dropdownOptions = document.createElement("div");
   dropdownOptions.classList = "more-coluna-dropdown";
+
+  let editarOption = document.createElement("span");
+  editarOption.innerHTML = "Editar";
+  editarOption.addEventListener("click", function (ev) {
+    let node = ev.target;
+    while (!node.className.match(/^column$/)) {
+      node = node.parentNode;
+    }
+
+    modalFunctions.modalEditarColuna(node);
+  });
+
   let deleteOption = document.createElement("span");
   deleteOption.innerHTML = "Deletar";
   deleteOption.addEventListener("click", function (ev) {
@@ -57,6 +69,7 @@ function criarNovaColuna(coluna) {
     removerColuna(node);
   });
 
+  dropdownOptions.appendChild(editarOption);
   dropdownOptions.appendChild(deleteOption);
 
   colunaHead.appendChild(nomeColuna);
@@ -139,7 +152,6 @@ function criarNovoCard(card) {
   cardHead.appendChild(btnMoreOptions);
   cardHead.appendChild(dropdownOptions);
 
-  const modal = document.querySelector(".modal");
   newElement.onclick = (ev) => {
     ev.preventDefault();
     if (
@@ -148,8 +160,6 @@ function criarNovoCard(card) {
     ) {
       return;
     }
-
-    modal.style.display = "block";
 
     let node = ev.target;
     while (!node.className.match(/^card$/)) {
