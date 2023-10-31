@@ -27,15 +27,15 @@
 
 .close {
   color: var(--c9);
-  font-size: 28px;
-  font-weight: bold;
+  padding: 10px;
 }
 
 .close:hover,
 .close:focus {
-  color: var(--azulEscuro);
-  text-decoration: none;
+  color: var(--c1);
   cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
 }
 
 .modal-header {
@@ -59,6 +59,14 @@
 .modal-body input,
 .modal-body textarea {
   width: 100%;
+  font-size: 1rem;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.modal-body label {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .modal-footer {

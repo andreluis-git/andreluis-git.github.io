@@ -13,9 +13,9 @@ const criarBaseModal = () => {
   let modalFooter = document.createElement("div");
   modalFooter.className = "modal-footer";
   let btnCloseModal = document.createElement("span");
-  btnCloseModal.className = "close";
+  btnCloseModal.className = "close material-symbols-outlined";
   btnCloseModal.id = "closeModal";
-  btnCloseModal.innerHTML = "&times;";
+  btnCloseModal.innerHTML = "close";
   btnCloseModal.onclick = () => {
     modal.style.display = "none";
     resetarModal();
