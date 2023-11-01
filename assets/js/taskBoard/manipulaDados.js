@@ -1,5 +1,6 @@
 import utils from "./utils.js";
 import modalFunctions from "./modal.js";
+import dragAndDrop from "./script.js";
 
 function carregarDados() {
   const listaTarefas = utils.getLocalStorage("boardData");
@@ -15,25 +16,29 @@ function carregarDados() {
       listaTarefas.colunas.forEach((coluna) => {
         let novaColuna = criarNovaColuna(coluna);
         let dropzone = novaColuna.querySelector(".dropzone");
+
         coluna.cards.forEach((card) => {
           const novoCard = criarNovoCard(card);
+          novoCard.addEventListener("dragstart", dragAndDrop.dragstartHandler);
+          novoCard.addEventListener("dragend", dragAndDrop.dragendHandler);
           dropzone.appendChild(novoCard);
         });
 
         column.parentNode.insertBefore(novaColuna, column);
-        modalFunctions.adicionaCartaoListener(
-          novaColuna.querySelector(".btn").id
-        );
+
+        dropzone.addEventListener("dragover", dragAndDrop.dragoverHandler);
       });
     }
   }
 }
 
 function criarNovaColuna(coluna) {
+  //Cria coluna
   let novaColuna = document.createElement("div");
   novaColuna.className = "column";
   novaColuna.id = coluna.id;
 
+  //Cria cabeçalho coluna
   let colunaHead = document.createElement("div");
   colunaHead.classList = "coluna-head";
   let nomeColuna = document.createElement("h2");
@@ -48,10 +53,7 @@ function criarNovaColuna(coluna) {
   let editarOption = document.createElement("span");
   editarOption.innerHTML = "Editar";
   editarOption.addEventListener("click", function (ev) {
-    let node = ev.target;
-    while (!node.className.match(/^column$/)) {
-      node = node.parentNode;
-    }
+    let node = utils.matchParentNode(ev.target, "column");
 
     modalFunctions.modalEditarColuna(node);
   });
@@ -59,12 +61,7 @@ function criarNovaColuna(coluna) {
   let deleteOption = document.createElement("span");
   deleteOption.innerHTML = "Deletar";
   deleteOption.addEventListener("click", function (ev) {
-    let node = ev.target;
-    while (!node.className.match(/^column$/)) {
-      node = node.parentNode;
-    }
-
-    console.log(node);
+    let node = utils.matchParentNode(ev.target, "column");
 
     removerColuna(node);
   });
@@ -93,7 +90,11 @@ function criarNovaColuna(coluna) {
   botao.innerHTML = "Adicionar cartão";
   botao.href = "#";
   botao.className = "btn";
-  botao.id = utils.padronizaString(coluna.nomeColuna + "_add");
+  botao.onclick = (ev) => {
+    let colunaId = utils.matchParentNode(ev.target, "column").id;
+
+    modalFunctions.modalCriarCard(colunaId);
+  };
 
   novaColuna.appendChild(colunaHead);
   novaColuna.appendChild(dropzone);
@@ -129,10 +130,7 @@ function criarNovoCard(card) {
   deleteOption.innerHTML = "Deletar";
   deleteOption.id = "deletar_card";
   deleteOption.addEventListener("click", function (ev) {
-    let node = ev.target;
-    while (!node.className.match(/^card$/)) {
-      node = node.parentNode;
-    }
+    let node = utils.matchParentNode(ev.target, "card");
 
     removerCard(node);
   });
@@ -162,10 +160,8 @@ function criarNovoCard(card) {
       return;
     }
 
-    let node = ev.target;
-    while (!node.className.match(/^card$/)) {
-      node = node.parentNode;
-    }
+    let node = utils.matchParentNode(ev.target, "card");
+
     modalFunctions.modalEditarCard(node);
   };
 
@@ -186,15 +182,11 @@ const removerColuna = (coluna) => {
   );
 
   utils.setLocalStorage("boardData", localStorageDados);
-
-  document.getElementById(coluna.id).parentElement.removeChild(coluna);
+  document.getElementById(coluna.id).parentNode.removeChild(coluna);
 };
 
 const removerCard = (card) => {
-  let colunaNome = card;
-  while (!colunaNome.className.match(/^column$/)) {
-    colunaNome = colunaNome.parentNode;
-  }
+  let colunaNome = utils.matchParentNode(card, "column");
 
   colunaNome = utils.padronizaString(colunaNome.querySelector("h2").innerHTML);
 
@@ -203,15 +195,13 @@ const removerCard = (card) => {
     (coluna) => utils.padronizaString(coluna.nomeColuna) == colunaNome
   );
 
-  console.log(localStorageDados.colunas[colunaPosition].cards);
-
   localStorageDados.colunas[colunaPosition].cards = localStorageDados.colunas[
     colunaPosition
   ].cards.filter((el) => el.id !== card.id);
 
   utils.setLocalStorage("boardData", localStorageDados);
 
-  document.getElementById(card.id).parentElement.removeChild(card);
+  document.getElementById(card.id).parentNode.removeChild(card);
 };
 
 const btnLimpar = document.getElementById("btnLimpar");
@@ -220,6 +210,9 @@ btnLimpar.onclick = () => {
   window.location.reload();
 };
 
+//INICIALIZAÇÃO DO BOARD
+carregarDados();
+
 const manipulaDados = {
   criarNovoCard,
   criarNovaColuna,
@@ -227,9 +220,3 @@ const manipulaDados = {
 };
 
 export default manipulaDados;
-
-/*TODO
-removerCard
-  apartar a rotina de encontrar posição do card no localstorage para reutilizar no modal.js gravarLocalStorage
-
-*/

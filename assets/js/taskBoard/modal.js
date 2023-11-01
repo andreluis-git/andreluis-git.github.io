@@ -3,7 +3,7 @@ import utils from "./utils.js";
 
 const modal = document.querySelector(".modal");
 
-//DOM
+//#region ModalBase
 const criarBaseModal = () => {
   let modalContent = modal.querySelector(".modal-content");
   let modalHeader = document.createElement("div");
@@ -26,6 +26,8 @@ const criarBaseModal = () => {
   modalContent.appendChild(modalBody);
   modalContent.appendChild(modalFooter);
 };
+
+//#endregion
 
 function modalCriarColuna() {
   const modalHeader = document.querySelector(".modal-header");
@@ -67,6 +69,7 @@ function modalCriarColuna() {
   });
 
   modal.style.display = "block";
+  input.focus();
 }
 
 function modalEditarColuna(coluna) {
@@ -75,7 +78,7 @@ function modalEditarColuna(coluna) {
   const modalFooter = document.querySelector(".modal-footer");
 
   let modalTitulo = document.createElement("h2");
-  modalTitulo.textContent = "Adicionar coluna";
+  modalTitulo.textContent = "Editar coluna";
 
   modalHeader.prepend(modalTitulo);
 
@@ -115,7 +118,7 @@ function modalEditarColuna(coluna) {
 }
 
 //#region Modais card
-function modalCriarCard(btnId) {
+function modalCriarCard(colunaId) {
   const modalHeader = document.querySelector(".modal-header");
   const modalBody = document.querySelector(".modal-body");
   const modalFooter = document.querySelector(".modal-footer");
@@ -142,8 +145,6 @@ function modalCriarCard(btnId) {
   modalBody.appendChild(labelTexto);
   modalBody.appendChild(inputTexto);
 
-  const colunaNome = btnId.replace("_add", "");
-
   let btnAdd = document.createElement("a");
   btnAdd.href = "#";
   btnAdd.textContent = "Salvar";
@@ -154,7 +155,7 @@ function modalCriarCard(btnId) {
       descricao: document.getElementById("inputTextoId").value,
     };
 
-    gravarCardLocalStorage(novoCard, colunaNome);
+    gravarCardLocalStorage(novoCard, colunaId);
     modal.style.display = "none";
     resetarModal();
   };
@@ -209,9 +210,7 @@ function modalEditarCard(card) {
   modalBody.appendChild(labelTexto);
   modalBody.appendChild(inputTexto);
 
-  const nomeColuna = utils.padronizaString(
-    card.parentNode.parentNode.querySelector("h2").innerHTML
-  );
+  const colunaId = utils.matchParentNode(card, "column").id;
 
   let btnAdd = document.createElement("a");
   btnAdd.href = "#";
@@ -224,7 +223,7 @@ function modalEditarCard(card) {
       id: card.id,
     };
 
-    gravarCardLocalStorage(novoCard, nomeColuna);
+    gravarCardLocalStorage(novoCard, colunaId);
     modal.style.display = "none";
     resetarModal();
   };
@@ -268,7 +267,7 @@ function gravarNovaColunaLocalStorage(titulo) {
         {
           nomeColuna: titulo,
           cards: [],
-          id: "coluna_0",
+          id: `coluna_id_${Date.now()}`,
         },
       ],
     };
@@ -281,7 +280,7 @@ function gravarNovaColunaLocalStorage(titulo) {
     dados.colunas.push({
       nomeColuna: titulo,
       cards: [],
-      id: "coluna_" + dados.colunas.length,
+      id: `coluna_id_${Date.now()}`,
     });
   }
 
@@ -294,7 +293,9 @@ function editarColunaLocalStorage(titulo, colunaId) {
   let dados = utils.getLocalStorage("boardData");
   if (dados) {
     dados.colunas.forEach((el) => {
-      if (el.id == colunaId) el.nomeColuna = titulo;
+      if (el.id == colunaId) {
+        el.nomeColuna = titulo;
+      }
     });
   }
 
@@ -303,7 +304,7 @@ function editarColunaLocalStorage(titulo, colunaId) {
   manipulaDados.carregarDados();
 }
 
-function gravarCardLocalStorage(novoCard, colunaNome) {
+function gravarCardLocalStorage(novoCard, colunaId) {
   let localStorageDados = utils.getLocalStorage("boardData");
 
   if (!localStorageDados) {
@@ -312,18 +313,14 @@ function gravarCardLocalStorage(novoCard, colunaNome) {
   }
 
   if (!novoCard.id) {
-    novoCard.id =
-      "card_" +
-      localStorageDados.colunas.find(
-        (coluna) => utils.padronizaString(coluna.nomeColuna) == colunaNome
-      ).cards.length;
+    novoCard.id = `card_id_${Date.now()}`;
 
     localStorageDados.colunas
-      .find((coluna) => utils.padronizaString(coluna.nomeColuna) == colunaNome)
+      .find((coluna) => coluna.id == colunaId)
       .cards.push(novoCard);
   } else {
     let colunaPosition = localStorageDados.colunas.findIndex(
-      (coluna) => utils.padronizaString(coluna.nomeColuna) == colunaNome
+      (coluna) => coluna.id == colunaId
     );
 
     let cardPosition = localStorageDados.colunas[
@@ -347,14 +344,15 @@ function adicionaCartaoListener(btnId) {
   let btn = document.getElementById(btnId);
   btn.onclick = () => {
     modalCriarCard(btnId);
-    modal.querySelector("#inputTituloId").focus();
+
+    // modal.querySelector("#inputTituloId").focus();
   };
 }
 
 btnAddColumn.onclick = (ev) => {
   modalCriarColuna();
 
-  modal.querySelector("#inputTituloId").focus();
+  // modal.querySelector("#inputTituloId").focus();
 };
 
 window.onclick = function (event) {
@@ -377,6 +375,7 @@ const modalFunctions = {
   adicionaCartaoListener,
   modalEditarCard,
   modalEditarColuna,
+  modalCriarCard,
 };
 
 export default modalFunctions;

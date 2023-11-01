@@ -1,48 +1,41 @@
-import manipulaDados from "./manipulaDados.js";
+import utils from "./utils.js";
 
-manipulaDados.carregarDados();
-
-const cards = document.querySelectorAll(".card");
-const dropZones = document.querySelectorAll(".dropzone");
 const board = document.querySelector(".board");
 
-cards.forEach((card) => {
-  card.addEventListener("dragstart", dragstartHandler);
-  card.addEventListener("dragend", dragendHandler);
-});
-
 function dragstartHandler(ev) {
+  const dropZones = document.querySelectorAll(".dropzone");
   ev.dataTransfer.effectAllowed = "move";
-
   dropZones.forEach((dropzone) => dropzone.classList.add("highlight"));
-  this.classList.add("dragging");
+  ev.target.classList.add("dragging");
 }
 
 function dragendHandler(ev) {
+  const dropZones = document.querySelectorAll(".dropzone");
   dropZones.forEach((dropzone) => dropzone.classList.remove("highlight"));
-  this.classList.remove("dragging");
+  ev.target.classList.remove("dragging");
 }
-
-//DROPZONES
-dropZones.forEach((dropZone) => {
-  dropZone.addEventListener("dragover", dragoverHandler);
-});
 
 function dragoverHandler(ev) {
   ev.preventDefault();
 
+  const dropzone = utils
+    .matchParentNode(ev.target, "column")
+    .querySelector(".dropzone");
+
   const draggingElement = document.querySelector(".dragging");
-  const applyAfter = getNewPosition(this, ev.clientY);
+  const applyAfter = getNewPosition(dropzone, ev.clientY);
 
   if (applyAfter) {
     applyAfter.insertAdjacentElement("afterend", draggingElement);
   } else {
-    this.prepend(draggingElement);
+    console.log();
+    dropzone.prepend(draggingElement);
   }
 }
 
 function getNewPosition(column, posY) {
   const cards = column.querySelectorAll(".card:not(.dragging)");
+
   let result;
 
   cards.forEach((card) => {
@@ -61,7 +54,7 @@ board.addEventListener("dragover", dragoverBoardHandler);
 function dragoverBoardHandler(ev) {
   ev.preventDefault();
   const draggingElement = document.querySelector(".dragging");
-  const outOfDropzone = getNewColumnPosition(this, ev.clientX, ev.clientY);
+  const outOfDropzone = getNewColumnPosition(ev.target, ev.clientX, ev.clientY);
 
   if (outOfDropzone) {
     outOfDropzone.appendChild(draggingElement);
@@ -89,3 +82,11 @@ function getNewColumnPosition(board, posX, posY) {
 
   return result;
 }
+
+const dragAndDrop = {
+  dragstartHandler,
+  dragendHandler,
+  dragoverHandler,
+};
+
+export default dragAndDrop;
