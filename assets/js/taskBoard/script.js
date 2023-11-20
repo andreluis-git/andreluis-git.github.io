@@ -12,6 +12,7 @@ function dragstartHandler(ev) {
 function dragendHandler(ev) {
   const dropZones = document.querySelectorAll(".dropzone");
   dropZones.forEach((dropzone) => dropzone.classList.remove("highlight"));
+  gravarColunaTrocaDeCard(ev);
   ev.target.classList.remove("dragging");
 }
 
@@ -28,7 +29,6 @@ function dragoverHandler(ev) {
   if (applyAfter) {
     applyAfter.insertAdjacentElement("afterend", draggingElement);
   } else {
-    console.log();
     dropzone.prepend(draggingElement);
   }
 }
@@ -46,6 +46,42 @@ function getNewPosition(column, posY) {
   });
 
   return result;
+}
+
+function gravarColunaTrocaDeCard(ev) {
+  let novaColunaId = utils.matchParentNode(ev.target, "column").id;
+  let dropzoneCards = utils
+    .matchParentNode(ev.target, "dropzone")
+    .querySelectorAll(".card");
+  console.log(dropzoneCards);
+  let localData = utils.getLocalStorage("boardData");
+  let colunas = localData.colunas;
+  let cardMovido;
+
+  //Encontrando o card na coluna origem e removendo
+  colunas.every((coluna) => {
+    cardMovido = coluna.cards.find((item) => item.id === ev.target.id);
+    if (cardMovido) {
+      coluna.cards = coluna.cards.filter((item) => item !== cardMovido);
+      return false;
+    }
+    return true;
+  });
+
+  //Adicionando o card movido na nova coluna
+  let posicaoElementoNaColuna = Array.prototype.slice
+    .call(dropzoneCards)
+    .findIndex((el) => el.id === cardMovido.id);
+  colunas.every((coluna) => {
+    if (coluna.id === novaColunaId) {
+      coluna.cards.splice(posicaoElementoNaColuna, 0, cardMovido);
+      return false;
+    }
+    return true;
+  });
+
+  localData.colunas = colunas;
+  utils.setLocalStorage("boardData", localData);
 }
 
 //BOARD
